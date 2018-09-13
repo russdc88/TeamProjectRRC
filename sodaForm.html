@@ -4,10 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Soda Guru</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon_package_v0.16/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon_package_v0.16/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon_package_v0.16/favicon-16x16.png">
+	<link rel="manifest" href="./assets/images/favicon_package_v0.16/site.webmanifest">
+	<meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+    
+    <title>Syrup List</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
+        <nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
+                <div class="container">
+                    <ul class="nav navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="navbar-brand" href="#">Soda Guru</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Gas Stations</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Syrups</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
     <div class="container">
         
     <div class="row">
@@ -20,19 +52,39 @@
               <form>
                 <div class="form-group row">
                   <label for="cherry-flavor-input">Cherry</label>
-                  <input class="form-control" id="cherry-input" placeholder="Do you like Cherry?" type="text">
+                  <select class="form-control" id="cherry-input" type="text">
+                    <option value="">Full</option>
+                    <option value="">Half</option>
+                    <option value="">Quarter</option>
+                    <option value="">Empty</option>
+                </select>
                 </div>
                 <div class="form-group row">
                   <label for="vanilla-flavor-input">Vanilla</label>
-                  <input class="form-control" id="vanilla-input" placeholder="Vanilla is a good flavor" type="text">
+                  <select class="form-control" id="vanilla-input" type="text">
+                    <option value="">Full</option>
+                    <option value="">Half</option>
+                    <option value="">Quarter</option>
+                    <option value="">Empty</option>
+                    </select>
                 </div>
                 <div class="form-group row">
                   <label for="coconut-flavor-input">Coconut</label>
-                  <input class="form-control" id="coconut-input" placeholder="You know you want Coconut" type="text">
+                  <select class="form-control" id="coconut-input" type="text">
+                    <option value="">Full</option>
+                    <option value="">Half</option>
+                    <option value="">Quarter</option>
+                    <option value="">Empty</option>
+                    </select>
                 </div>
                 <div class="form-group row">
                   <label for="peach-flavor-input">Peach</label>
-                  <input class="form-control" id="peach-input" placeholder="Peach is the bomb!" type="text">
+                  <select class="form-control" id="peach-input" type="text">
+                    <option value="">Full</option>
+                    <option value="">Half</option>
+                    <option value="">Quarter</option>
+                    <option value="">Empty</option>
+                    </select>
                 </div>
                 <button class="btn btn-primary float-right" id="add-employee-btn">Submit</button>
               </form>
