@@ -1,5 +1,7 @@
-//API code for google place api:AIzaSyAiF9BD-SMgaRYtpi0vIEzyj_6vhO0t83o//
-
+$(".carousel").carousel({
+	interval: 2000
+	//API code for google place api:AIzaSyAiF9BD-SMgaRYtpi0vIEzyj_6vhO0t83o//
+})
 
 
 
@@ -14,4 +16,4 @@ $(document).on("click", "button", function () {
 		.then(function (response) {
 			console.log(response);
 		})
-})
+});
