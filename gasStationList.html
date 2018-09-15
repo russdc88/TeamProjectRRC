@@ -24,13 +24,14 @@
 
 	 
 
-	 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiF9BD-SMgaRYtpi0vIEzyj_6vhO0t83o&callback=initMap">
-    </script>
 
 </head>
 
 <body class="gasStationList">
+	<div class="loading-gif-wrapper">
+		<h3>Loading current location</h3>
+		<img id="loading-gif" style="-webkit-user-select: none;" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif">
+	</div>
 	<nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
 		<div class="container">
 			<ul class="nav navbar-nav mx-auto">
@@ -74,10 +75,16 @@
 			</div>
 		</div>
 	</div>
+	
+
+
+<script src="./assets/javascript/app.js"></script>
 
 
 
-	<script src="./assets/javascript/app.js"></script>
+	 <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiF9BD-SMgaRYtpi0vIEzyj_6vhO0t83o">
+    </script>
 </body>
 
 </html>
