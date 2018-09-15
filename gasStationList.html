@@ -19,18 +19,19 @@
 	<!--bootstrap link-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	 crossorigin="anonymous">
-<!-- adding css style sheet -->
-	 <link rel="stylesheet" href="./assets/css/style.css">
+	<!-- adding css style sheet -->
+	<link rel="stylesheet" href="./assets/css/style.css">
 
-	 
 
-	 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiF9BD-SMgaRYtpi0vIEzyj_6vhO0t83o&callback=initMap">
-    </script>
+
 
 </head>
 
 <body class="gasStationList">
+	<div class="loading-gif-wrapper">
+		<h3>Loading current location</h3>
+		<img id="loading-gif" style="-webkit-user-select: none;" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif">
+	</div>
 	<nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
 		<div class="container">
 			<ul class="nav navbar-nav mx-auto">
@@ -70,13 +71,15 @@
 			</div>
 			<div class="col-lg-6">
 				<h3>My Google Maps Demo</h3>
-				<div id ="map"></div>
+				<div id="map"></div>
 			</div>
 		</div>
 	</div>
-	<br> <br>
 
-	<footer class="footer"> 
+	<br>
+	<br>
+
+	<footer class="footer">
 		<div class="container">
 			<span> Copyright @ 2018</span>
 		</div>
@@ -84,6 +87,9 @@
 
 
 	<script src="./assets/javascript/app.js"></script>
+
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiF9BD-SMgaRYtpi0vIEzyj_6vhO0t83o">
+	</script>
 </body>
 
 </html>
