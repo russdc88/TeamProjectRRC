@@ -1,97 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon_package_v0.16/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon_package_v0.16/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon_package_v0.16/favicon-16x16.png">
-	<link rel="manifest" href="./assets/images/favicon_package_v0.16/site.webmanifest">
-	<meta name="msapplication-TileColor" content="#2b5797">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon_package_v0.16/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon_package_v0.16/favicon-16x16.png">
+    <link rel="manifest" href="./assets/images/favicon_package_v0.16/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="theme-color" content="#ffffff">
-    
+
     <title>Syrup List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
 </head>
+
 <body>
-        <nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
-                <div class="container">
-                    <ul class="nav navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="./mainPage.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./about.html">About</a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="navbar-brand" href="#">Soda Guru</a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="./gasStationList.html">Gas Stations</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="./sodaForm.html">Syrups</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-    <div class="container">
-        
-    <div class="row">
-        <div class="col-md-12">
-          <!-- Add Employee  -->
-          <div class="card mb-4 p-4">
-            <div class="card-body">
-              Which flavors would you like?
-              <!-- Entry Form -->
-              <form>
-                <div class="form-group row">
-                  <label for="cherry-flavor-input">Cherry</label>
-                  <select class="form-control" id="cherry-input" type="text">
-                    <option value="">Full</option>
-                    <option value="">Half</option>
-                    <option value="">Quarter</option>
-                    <option value="">Empty</option>
-                </select>
-                </div>
-                <div class="form-group row">
-                  <label for="vanilla-flavor-input">Vanilla</label>
-                  <select class="form-control" id="vanilla-input" type="text">
-                    <option value="">Full</option>
-                    <option value="">Half</option>
-                    <option value="">Quarter</option>
-                    <option value="">Empty</option>
-                    </select>
-                </div>
-                <div class="form-group row">
-                  <label for="coconut-flavor-input">Coconut</label>
-                  <select class="form-control" id="coconut-input" type="text">
-                    <option value="">Full</option>
-                    <option value="">Half</option>
-                    <option value="">Quarter</option>
-                    <option value="">Empty</option>
-                    </select>
-                </div>
-                <div class="form-group row">
-                  <label for="peach-flavor-input">Peach</label>
-                  <select class="form-control" id="peach-input" type="text">
-                    <option value="">Full</option>
-                    <option value="">Half</option>
-                    <option value="">Quarter</option>
-                    <option value="">Empty</option>
-                    </select>
-                </div>
-                <button class="btn btn-primary float-right" id="add-employee-btn">Submit</button>
-              </form>
-            </div>
-          </div>
+    <nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
+        <div class="container">
+            <ul class="nav navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./mainPage.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./about.html">About</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#">Soda Guru</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="./gasStationList.html">Gas Stations</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="./sodaForm.html">Syrups</a>
+                </li>
+            </ul>
         </div>
-      </div>
+    </nav>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Add Employee  -->
+                <div class="card mb-4 p-4">
+                    <div class="card-body">
+                        Which flavors would you like?
+                        <!-- Entry Form -->
+                        <form>
+                            <div class="form-group row">
+                                <label for="cherry-flavor-input">Cherry</label>
+                                <select class="form-control" id="cherry-input" type="text">
+                                    <option class="cherry-selection" value=""></option>
+                                    <option class="cherry-selection" value="full">Full</option>
+                                    <option class="cherry-selection" value="half">Half</option>
+                                    <option class="cherry-selection" value="quarter">Quarter</option>
+                                    <option class="cherry-selection" value="empty">Empty</option>
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <label for="vanilla-flavor-input">Vanilla</label>
+                                <select class="form-control" id="vanilla-input" type="text">
+                                    <option class="vanilla-selection" value=""></option>
+                                    <option class="vanilla-selection" value="full">Full</option>
+                                    <option class="vanilla-selection" value="half">Half</option>
+                                    <option class="vanilla-selection" value="quarter">Quarter</option>
+                                    <option class="vanilla-selection" value="empty">Empty</option>
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <label for="coconut-flavor-input">Coconut</label>
+                                <select class="form-control" id="coconut-input" type="text">
+                                    <option class="coconut-selection" value=""></option>
+                                    <option class="coconut-selection" value="full">Full</option>
+                                    <option class="coconut-selection" value="half">Half</option>
+                                    <option class="coconut-selection" value="quarter">Quarter</option>
+                                    <option class="coconut-selection" value="empty">Empty</option>
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <label for="peach-flavor-input">Peach</label>
+                                <select class="form-control" id="peach-input" type="text">
+                                    <option class="peach-selection" value=""></option>
+                                    <option class="peach-selection" value="full">Full</option>
+                                    <option class="peach-selection" value="half">Half</option>
+                                    <option class="peach-selection" value="quarter">Quarter</option>
+                                    <option class="peach-selection" value="empty">Empty</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary float-right submit" id="add-syrup-btn">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="./assets/javascript/sodaForm.js"></script>
+
 </body>
+
 </html>

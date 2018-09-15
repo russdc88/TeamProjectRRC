@@ -2,6 +2,7 @@
 
 
 
+
 navigator.geolocation.getCurrentPosition(function (position) {
 	// var gps = (position.coords.latitude + "," + position.coords.longitude);
 	// window.gps = gps;
@@ -66,3 +67,5 @@ function continueSomeProcess() {
 // $(".carousel").carousel({
 // 	interval: 2000
 // })
+
+//setting up Firebase for syrups
