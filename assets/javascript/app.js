@@ -1,6 +1,7 @@
 //setting functionality to a specifc page
 // import config from './../..config.js'
 // console.log(config)
+var myKey = password.GOOGLE_API_KEY
 
 let x 
 let y
@@ -35,7 +36,7 @@ function continueSomeProcess() {
 
 
 
-		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=AIzaSyAiF9BD-SMgaRYtpi0vIEzyj_6vhO0t83o"
+		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=" + myKey;
 
 
 
