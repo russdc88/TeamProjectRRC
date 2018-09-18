@@ -1,7 +1,7 @@
 //setting functionality to a specifc page
 // import config from './../..config.js'
 // console.log(config)
-var myKey = password.GOOGLE_API_KEY
+var myKey = "AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY";
 
 //connecting to firebase to get data that was entered on syrup page
 var config = {
@@ -22,6 +22,7 @@ var cherry;
 var vanilla;
 var coconut;
 var peach;
+var gasStationIds = [];
 
 let x
 let y
@@ -43,18 +44,15 @@ $(document).ready(function () {
 		// window.gps = gps;
 
 		x = position.coords.latitude;
-		y = position.coords.longitude
-
-<<<<<<< HEAD
+		y = position.coords.longitude;
+		
 		continueSomeProcess()
 	});
 	//creating callback function  so my geolocation loads before any of my javascipt runs.
 	function continueSomeProcess() {
 		console.log(x)
-		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=AIzaSyAiF9BD-SMgaRYtpi0vIEzyj_6vhO0t83o"
-=======
+	
 		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=" + myKey;
->>>>>>> master
 
 		$.ajax({
 			url: gasStationURL,
@@ -64,37 +62,65 @@ $(document).ready(function () {
 				$('.loading-gif-wrapper').hide()
 				console.log(response);
 				for (var i = 0; i < 5; i++) {
+					gasStationIds.push(response.results[i].id);
 					var list = $("<li>");
 					list.addClass("list-group-item")
-					list.html(response.results[i].name + "<br>" + response.results[i].vicinity + ", Utah <br>"+ "Cherry: " + cherry + "<br>" + "Vanilla: " + vanilla + "<br>" + "Coconut: " + coconut +" <br>" + "Peach: " + peach)
-
+					list.html(response.results[i].name + "<br>" + response.results[i].vicinity)
+					let syrupDiv = $('<div>')
+					syrupDiv.attr('id', response.results[i].id)
+					var editButton = $("<a>");
+					let pathname = window.location.origin.indexOf('file') > -1 ? "/C:/Users/Owner/uubc/group%20projects/RRC/TeamProjectRRC/sodaForm.html" : "/sodaForm.html"
+					editButton.attr("href", window.location.origin + pathname + "?id=" + response.results[i].id)
+					editButton.text("Update Syrups");
+					list.append(syrupDiv, editButton)
 					$(".gas-station-list").append(list);
 				}
 				initMap(x, y)
+				getSyrups()
 			})
 
 
 	}
 	//grabs data from firebase and re
 	function getSyrups() {
-		database.ref().on("child_added", function (childSnapshot) {
-			console.log(childSnapshot);
-			cherry = childSnapshot.val().cherry;
-			vanilla = childSnapshot.val().vanilla;
-			coconut = childSnapshot.val().coconut;
-			peach = childSnapshot.val().peach;
-
-
-			//  syrupDiv = $("<div>").addClass("syrup-data").append(
-			// 	$("<div>").addClass("table-data col-lg-2").text(cherry),
-			// 	$("<div>").addClass("table-data col-lg-2").text(vanilla),
-			// 	$("<div>").addClass("table-data col-lg-2").text(coconut),
-			// 	$("<div>").addClass("table-data col-lg-2").text(peach),
-			// )
-
-				// $(".list-group-item").append(syrupDiv);
-		})
+		for(let i=0; gasStationIds.length; i++){
+			database.ref().orderByChild("location").equalTo(gasStationIds[i]).once("value").then(function (snapshot) {
+				let fbObj = {}
+				if(snapshot.val()){
+					console.log(snapshot)
+					fbObj = snapshot.val()[Object.keys(snapshot.val())[0]]
+					console.log(fbObj)
+					let syrupDiv = document.getElementById(fbObj.location)
+					syrupDiv.innerHTML = "Cherry: " + fbObj.cherry + "<br>" + "Vanilla: " + fbObj.vanilla + "<br>" + "Coconut: " + fbObj.coconut +" <br>" + "Peach: " + fbObj.peach
+					//update the DOM
+				} else {
+					database.ref().push({
+						location: gasStationIds[i],
+						cherry: "No Data",
+						vanilla: "No Data",
+						coconut: "No Data",
+						peach: "No Data",
+						dateAdded: firebase.database.ServerValue.TIMESTAMP
+					}).then(function(res){
+						getStragglerSyrup(gasStationIds[i])
+						console.log(res)
+					});
+				}
+			})
+		}
 	}
+
+	function getStragglerSyrup(id){
+		database.ref().orderByChild("location").equalTo(id).once("value").then(function (snapshot) {
+			let fbObj = {}
+			if(snapshot.val()){
+				fbObj = snapshot.val()[Object.keys(snapshot.val())[0]]
+				let syrupDiv = document.getElementById(fbObj.location)
+				syrupDiv.innerHTML = "Cherry: " + fbObj.cherry + "<br>" + "Vanilla: " + fbObj.vanilla + "<br>" + "Coconut: " + fbObj.coconut +" <br>" + "Peach: " + fbObj.peach
+			}
+		})	
+	}
+
 	getSyrups()
 });
 
