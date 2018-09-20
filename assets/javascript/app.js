@@ -38,8 +38,10 @@ function initMap(x, y) {
 	// The location of Uluru
 	var uluru = { lat: x, lng: y };
 	// The map, centered at Uluru
-	var map = new google.maps.Map(
-		document.getElementById('map'), { zoom: 4, center: uluru });
+	var map = new google.maps.Map(document.getElementById('map'), { 
+			zoom: 15, 
+			center: uluru 
+		});
 	// The marker, positioned at Uluru
 	var marker = new google.maps.Marker({ position: uluru, map: map });
 }
@@ -63,12 +65,8 @@ $(document).ready(function () {
 	//creating callback function so my geolocation loads before any of my javascipt runs.
 	function continueSomeProcess() {
 		console.log(x)
-<<<<<<< HEAD
-		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=AIzaSyAiF9BD-SMgaRYtpi0vIEzyj_6vhO0t83o"
-=======
 
-		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=" + myKey;
->>>>>>> origin
+		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY";
 
 		$.ajax({
 			url: gasStationURL,
