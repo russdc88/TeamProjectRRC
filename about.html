@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	
+	<!-- icons for tab and mobile icons -->
 	<link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon_package_v0.16/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon_package_v0.16/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon_package_v0.16/favicon-16x16.png">
@@ -13,68 +14,74 @@
 	<meta name="theme-color" content="#ffffff">
 	<title>Main Page</title>
 	<!-- bootstarp link -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	 crossorigin="anonymous">
+	<!-- css stylesheet -->
 	<link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body>
-		<nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav">
-				<div class="container">
-						<ul class="nav navbar-nav mx-auto">
-								<li class="nav-item">
-										<a class="nav-link" href="./mainPage.html">Home</a>
-								</li>
-								<li class="nav-item active">
-										<a class="nav-link" href="./about.html">About</a>
-								</li>
-						</ul>
-						<ul class="nav navbar-nav mx-auto">
-								<li class="nav-item"><a class="navbar-brand" href="#">Soda Guru</a></li>
-						</ul>
-						<ul class="nav navbar-nav mx-auto">
-								<li class="nav-item">
-										<a class="nav-link" href="./gasStationList.html">Gas Stations</a>
-								</li>
-								<li class="nav-item">
-										<a class="nav-link" href="./sodaForm.html">Syrups</a>
-								</li>
-						</ul>
-				</div>
-		</nav>
-		<br> <br>
+	<!-- creating navigation bar on top -->
+	<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark main-nav">
 		<div class="container">
-			<div class="row textBack">
-				<div class="col-lg-12">
-					<h3>About Soda Guru</h3>
-					<br>
-					<p>
-						Mixed soda is a growing trend in Utah and "restaurants" like Thirst, Swig, and Sodalicious are
-						 sprouting up all over the state. But have you ever been in a situation when 
-						 one of those pesky soda craving suddenly descends upon you and Sodalicious, et al., are MILES AWAY? 
-						 Well, that's why we invented Soda Guru. 
-					</p>
-					<p>
-						Soda Guru compiles a list of gas stations within 5,000 meters of your current location, maps them out for your convenience,
-						 displays the flavors available at each station 
-						and finally, includes the quantity of syrups the stations currently available.  All you have to do is drive, run or 
-						speed-walk to the 
-						gas station of your choice, fill up the largest cup you can find with your favorite soda, and add the syrups of your choice
-						to your heart's content. 
-					</p>
-					<p>
-						But don't forget to update how much syrup is left so that all soda-syrup-lovers in the area can stay up to 
-						date with what the gas station has in stock.  
-					</p>
-				</div>
+			<ul class="nav navbar-nav mx-auto">
+				<!-- <li class="nav-item">
+					<a class="nav-link" href="./mainPage.html">Home</a>
+				</li> -->
+				<li class="nav-item active">
+					<a class="nav-link" href="./about.html">About</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav mx-auto">
+				<li class="nav-item">
+					<a class="navbar-brand" href="./mainPage.html">Soda Guru</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav mx-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="./gasStationList.html">Gas Stations</a>
+				</li>
+				<!-- <li class="nav-item">
+					<a class="nav-link" href="./sodaForm.html">Syrups</a>
+				</li> -->
+			</ul>
+		</div>
+	</nav>
+	<br>
+	<br>
+	<!-- adding the about info -->
+	<div class="container">
+		<div class="row textBack pt-5 mt-5">
+			<div class="col-lg-12">
+				<h3>About Soda Guru</h3>
+				<br>
+				<p>
+					Mixed soda is a growing trend in Utah and "restaurants" like Thirst, Swig, and Sodalicious are sprouting up all over the
+					state. But have you ever been in a situation when one of those pesky soda craving suddenly descends upon you and Sodalicious,
+					et al., are MILES AWAY? Well, that's why we invented Soda Guru.
+				</p>
+				<p>
+					Soda Guru compiles a list of gas stations within 5,000 meters of your current location, maps them out for your convenience,
+					displays the flavors available at each station and finally, includes the quantity of syrups the stations currently available.
+					All you have to do is drive, run or speed-walk to the gas station of your choice, fill up the largest cup you can find
+					with your favorite soda, and add the syrups of your choice to your heart's content.
+				</p>
+				<p>
+					But don't forget to update how much syrup is left so that all soda-syrup-lovers in the area can stay up to date with what
+					the gas station has in stock.
+				</p>
 			</div>
 		</div>
+	</div>
 
-		<br> <br>
+	<br>
+	<br>
 
-		<footer class="footer"> 
-				<div class="container">
-					<span> Copyright @ 2018</span>
-				</div>
-			</footer>
+	<footer class="footer">
+		<div class="container">
+			<span> Copyright @ 2018</span>
+		</div>
+	</footer>
 </body>
+
 </html>
