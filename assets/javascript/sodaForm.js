@@ -14,7 +14,7 @@ $(document).ready(function () {
 
 	//naming firebase database
 	var database = firebase.database();
-	var myKey = password.GOOGLE_API_KEY;
+	var myKey = "AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY";
 	var location = "358d94c69bf1ecc3cb5dd8e29a77a93d1047cb84";
 	var cherry = "";
 	var vanilla = "";
