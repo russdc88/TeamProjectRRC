@@ -37,7 +37,7 @@ $(document).ready(function () {
         var marker = new google.maps.Marker({ position: uluru, map: map });
     }
 
-    $(document).ready(function () {
+    // $(document).ready(function () {
         //univeral start code for calling url information 
         let params = (new URL(document.location)).searchParams;
 
@@ -65,46 +65,13 @@ $(document).ready(function () {
         }
         getSyrupData()
 
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var gps = (position.coords.latitude + "," + position.coords.longitude);
-            window.gps = gps;
-
-            latX = position.coords.latitude;
-            lonY = position.coords.longitude
-
-            continueSomeProcess()
-        });
-    });
-
-    //creating callback function so my geolocation loads before any of my javascipt runs.
-    function continueSomeProcess() {
-        console.log(latX)
-        var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latX + "," + lonY + "&radius=2000&types=convenience_store&limit=5&key=" + myKey;
-
-        $.ajax({
-            url: gasStationURL,
-            method: "GET"
-        })
-            .then(function (response) {
-                //$('.loading-gif-wrapper').hide()
-                console.log(response);
-                for (var i = 0; i < 5; i++) {
-                    var list = $("<li>");
-                    //console.log( response.results[i].id)
-                    gasStationIds.push(response.results[i].id);
-                    //console.log(gasStationIds);
-                    list.addClass("list-group-item")
-                    list.html(response.results[i].name + "<br>" + response.results[i].vicinity + ", Utah <br>" + "Cherry: " + cherry + "<br>" + "Vanilla: " + vanilla + "<br>" + "Coconut: " + coconut + " <br>" + "Peach: " + peach)
-
-                    $(".gas-station-list").append(list);
-                }
-                initMap(latX, lonY)
-            })
-    }
     // var gasStationOption = $("<option>").addClass("gas-station-option").text("location");
     // $("#gas-station-input").append(gasStationOption);
+    
+    $('.syrup-select').on("change", function(){
+        this.options[0].innerHTML = this.value
+    })
 
-    console.log(window.location.search.split("?")[1].split("=")[1]);
     //when submit button is clicked...
     $(".submit").on("click", function (event) {
         
@@ -116,12 +83,21 @@ $(document).ready(function () {
 
         database.ref().orderByChild("location").equalTo(id).once("value").then(function (snapshot) {
             let key = Object.keys(snapshot.val())[0]
-            console.log(key);
+            console.log(document.getElementById("cherry-input"));
             database.ref(key).update({
-                cherry: $("#cherry-input").val(),
-                vanilla: $("#vanilla-input").val(),
-                coconut: $("#coconut-input").val(),
-                peach: $("#peach-input").val()
+                cherry: document.getElementById("cherry-input").options[0].innerHTML,
+                vanilla: document.getElementById("vanilla-input").options[0].innerHTML,
+                coconut:document.getElementById("coconut-input").options[0].innerHTML,
+                peach: document.getElementById("peach-input").options[0].innerHTML
+            }, function(){
+                console.log('window.location', window.location);
+                console.log('window.location.origin', window.location.origin);
+                console.log('window.location.pathname', window.location.pathname);
+                let searchString = /\w+\.html/gi;
+                let result = window.location.pathname.match(searchString);
+                window.location = window.location.origin + window.location.pathname.replace(result, 'gasStationList.html');
+                console.log('result', result);
+                // window.location=window.location.origin;
             })
         });
     })
