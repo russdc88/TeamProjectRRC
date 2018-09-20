@@ -1,7 +1,7 @@
 //setting functionality to a specifc page
 // import config from './../..config.js'
 // console.log(config)
-var myKey = password.GOOGLE_API_KEY
+var myKey = "AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY";
 
 //connecting to firebase to get data that was entered on syrup page
 var config = {
@@ -14,17 +14,26 @@ var config = {
 };
 firebase.initializeApp(config);
 
+//naming firebase database
 var database = firebase.database();
 
-//initializing syrup variables 
+//div to hold syrup list for each location
 var syrupDiv;
+
+//list of syrup flavors
 var cherry;
 var vanilla;
 var coconut;
 var peach;
 
+//will hold gas station ids for each of the 5 locations- provided by google api
+var gasStationIds = [];
+
+//lattitude and longitude variables for google api
 let x
 let y
+
+//initializes google maps
 function initMap(x, y) {
 	// The location of Uluru
 	var uluru = { lat: x, lng: y };
@@ -35,26 +44,27 @@ function initMap(x, y) {
 	var marker = new google.maps.Marker({ position: uluru, map: map });
 }
 
+
+//doesn't allow javascript to run until document is ready
 $(document).ready(function () {
 
 
+	//lets google locate user to be used to grab gas stations within 5000 meters of user location
 	navigator.geolocation.getCurrentPosition(function (position) {
 		// var gps = (position.coords.latitude + "," + position.coords.longitude);
 		// window.gps = gps;
 
 		x = position.coords.latitude;
-		y = position.coords.longitude
+		y = position.coords.longitude;
 
-<<<<<<< HEAD
 		continueSomeProcess()
 	});
-	//creating callback function  so my geolocation loads before any of my javascipt runs.
+
+	//creating callback function so my geolocation loads before any of my javascipt runs.
 	function continueSomeProcess() {
 		console.log(x)
-		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=AIzaSyAiF9BD-SMgaRYtpi0vIEzyj_6vhO0t83o"
-=======
+
 		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=" + myKey;
->>>>>>> master
 
 		$.ajax({
 			url: gasStationURL,
@@ -63,38 +73,102 @@ $(document).ready(function () {
 			.then(function (response) {
 				$('.loading-gif-wrapper').hide()
 				console.log(response);
+
+				//only displays first 5 results
 				for (var i = 0; i < 5; i++) {
+					gasStationIds.push(response.results[i].id);
 					var list = $("<li>");
 					list.addClass("list-group-item")
-					list.html(response.results[i].name + "<br>" + response.results[i].vicinity + ", Utah <br>"+ "Cherry: " + cherry + "<br>" + "Vanilla: " + vanilla + "<br>" + "Coconut: " + coconut +" <br>" + "Peach: " + peach)
 
+					//grabs gas station name and address from google api and displays them in a list on gasStationList.html dom
+					list.html(response.results[i].name + "<br>" + response.results[i].vicinity)
+					
+					//place holder div for syrup data from firebase
+					let syrupDiv = $('<div>')
+
+					//key line- setting syrupDiv id = id from google api for each location in list
+					syrupDiv.attr('id', response.results[i].id)
+
+					//creating an link to sodaform.html below each gas station syrup list that links to the individual data for each location using location id
+					var editButton = $("<a>");
+
+					//checks if url path exists- "file" is just a placeholder, then if it exits it assigns the location in C drive to pathname 
+					let pathname = window.location.origin.indexOf('file') > -1 ? "/C:/Users/Owner/uubc/group%20projects/RRC/TeamProjectRRC/sodaForm.html" : "/sodaForm.html"
+
+					//setting the href with dynamic url path name variables + the unique id of each location which was provided by google api
+					editButton.attr("href", window.location.origin + pathname + "?id=" + response.results[i].id)
+					editButton.text("Update Syrups");
+					list.append(syrupDiv, editButton)
 					$(".gas-station-list").append(list);
 				}
 				initMap(x, y)
+				getSyrups()
 			})
 
 
 	}
-	//grabs data from firebase and re
+	//grabs data from firebase and displays them below each gas station that is listed on gas station page
 	function getSyrups() {
-		database.ref().on("child_added", function (childSnapshot) {
-			console.log(childSnapshot);
-			cherry = childSnapshot.val().cherry;
-			vanilla = childSnapshot.val().vanilla;
-			coconut = childSnapshot.val().coconut;
-			peach = childSnapshot.val().peach;
+		//iterates for length of gasStationsId array- hold 5 ids
+		for (let i = 0; gasStationIds.length; i++) {
 
+			//key line- retreiving object from firebase that contains id that is linked to <a href> link with unique location id 
+			database.ref().orderByChild("location").equalTo(gasStationIds[i]).once("value").then(function (snapshot) {
 
-			//  syrupDiv = $("<div>").addClass("syrup-data").append(
-			// 	$("<div>").addClass("table-data col-lg-2").text(cherry),
-			// 	$("<div>").addClass("table-data col-lg-2").text(vanilla),
-			// 	$("<div>").addClass("table-data col-lg-2").text(coconut),
-			// 	$("<div>").addClass("table-data col-lg-2").text(peach),
-			// )
+				//creating an empty object
+				let fbObj = {}
 
-				// $(".list-group-item").append(syrupDiv);
+				//if snapshot.val() has a value(id number), grab data from firebase and put in syrup div on gasStatioList.html
+				if (snapshot.val()) {
+					console.log("Snapshot" + JSON.stringify(snapshot))
+
+					//grabbing value of the keys at index 0 in snapshot(only one object in snapshot per iteration)
+					fbObj = snapshot.val()[Object.keys(snapshot.val())[0]]
+					console.log(fbObj)
+					let syrupDiv = document.getElementById(fbObj.location)
+					syrupDiv.innerHTML = "Cherry: " + fbObj.cherry + "<br>" + "Vanilla: " + fbObj.vanilla + "<br>" + "Coconut: " + fbObj.coconut + " <br>" + "Peach: " + fbObj.peach
+					//update the DOM
+
+					//if snapshot.val() for that id doesn't exist- push "no data" into firebase for each flavor
+				} else {
+					database.ref().push({
+						location: gasStationIds[i],
+						cherry: "No Data",
+						vanilla: "No Data",
+						coconut: "No Data",
+						peach: "No Data",
+						dateAdded: firebase.database.ServerValue.TIMESTAMP
+
+						//then, pull the new "no data" inputs from firebase and display in syrupDiv on gasStationList.html- now all gas stations have syrup data on html dom
+					}).then(function (res) {
+						getStragglerSyrup(gasStationIds[i])
+						console.log(res)
+					});
+				}
+			})
+		}
+	}
+	
+	//calling firebase to get all items with an id to populate gas station syrup lists that just got "no data" pushed into values of flavor keys
+	function getStragglerSyrup(id) {
+
+		//looking through database for objects that contain a key of "location" with a value(id), then sending a snapshot of the data back to user
+		database.ref().orderByChild("location").equalTo(id).once("value").then(function (snapshot) {
+
+			//creating an empty object
+			let fbObj = {}
+
+			//if snapshot.val() has a value
+			if (snapshot.val()) {
+
+				//grabbing value of the keys at index 0 in snapshot(only one object in snapshot per iteration)
+				fbObj = snapshot.val()[Object.keys(snapshot.val())[0]]
+				let syrupDiv = document.getElementById(fbObj.location)
+				syrupDiv.innerHTML = "Cherry: " + fbObj.cherry + "<br>" + "Vanilla: " + fbObj.vanilla + "<br>" + "Coconut: " + fbObj.coconut + " <br>" + "Peach: " + fbObj.peach
+			}
 		})
 	}
+
 	getSyrups()
 });
 
