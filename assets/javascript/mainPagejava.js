@@ -2,7 +2,7 @@ $(".carousel").carousel({
 	interval:2000
 });
 
-var myKey = password.GOOGLE_API_KEY
+// var myKey = password.GOOGLE_API_KEY
 
 let x 
 let y
@@ -35,7 +35,7 @@ function continueSomeProcess() {
 
 
 
-
+		var myKey = "AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY";
 
 		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=" + myKey;
 
@@ -47,7 +47,7 @@ function continueSomeProcess() {
 			method: "GET"
 		})
 			.then(function (response) {
-				$('.loading-gif-wrapper').hide()
+				// $('.loading-gif-wrapper').hide()
 				console.log(response);
 				for (var i = 0; i < 5; i++) {
 					var list = $("<li>");
