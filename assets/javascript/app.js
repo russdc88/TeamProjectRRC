@@ -65,12 +65,8 @@ $(document).ready(function () {
 	//creating callback function so my geolocation loads before any of my javascipt runs.
 	function continueSomeProcess() {
 		console.log(x)
-<<<<<<< HEAD
-		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=AIzaSyAiF9BD-SMgaRYtpi0vIEzyj_6vhO0t83o"
-=======
 
-		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=" + myKey;
->>>>>>> origin
+		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY";
 
 		$.ajax({
 			url: gasStationURL,
