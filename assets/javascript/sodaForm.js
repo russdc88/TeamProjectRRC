@@ -57,9 +57,9 @@ $(document).ready(function () {
                     fbObj = snapshot.val()[Object.keys(snapshot.val())[0]]
                     console.log(fbObj)
                     document.getElementById("cherry-input").options[0].innerHTML = fbObj.cherry
-                    document.getElementById$("#vanilla-input").val(fbObj.vanilla);
-                    $("#coconut-input").val(fbObj.coconut);
-                    $("#peach-input").val(fbObj.peach);
+                    document.getElementById("vanilla-input").options[0].innerHTML = fbObj.vanilla
+                    document.getElementById("coconut-input").options[0].innerHTML = fbObj.coconut
+                    document.getElementById("peach-input").options[0].innerHTML = fbObj.peach                   
                 }
             })
         }
@@ -105,17 +105,24 @@ $(document).ready(function () {
     // $("#gas-station-input").append(gasStationOption);
 
     console.log(window.location.search.split("?")[1].split("=")[1]);
-
     //when submit button is clicked...
     $(".submit").on("click", function (event) {
-
+        
+        var id =window.location.search.split("?")[1].split("=")[1]
         event.preventDefault();
         console.log("I'm working");
 
-        database.ref().orderByChild("location").equalTo("id").once("value").then(function (snapshot) {
+        //get inputs of syrup
 
-            console.log(snapshot);
-
+        database.ref().orderByChild("location").equalTo(id).once("value").then(function (snapshot) {
+            let key = Object.keys(snapshot.val())[0]
+            console.log(key);
+            database.ref(key).update({
+                cherry: $("#cherry-input").val(),
+                vanilla: $("#vanilla-input").val(),
+                coconut: $("#coconut-input").val(),
+                peach: $("#peach-input").val()
+            })
         });
     })
 })
