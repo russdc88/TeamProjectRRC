@@ -1,3 +1,4 @@
+//doesn't allow javascript to run until document is ready
 $(document).ready(function () {
 
     // Initialize Firebase
@@ -11,6 +12,7 @@ $(document).ready(function () {
     };
     firebase.initializeApp(config);
 
+    //naming firebase database
     var database = firebase.database();
     var myKey = "AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY";
     var location = "358d94c69bf1ecc3cb5dd8e29a77a93d1047cb84";
@@ -19,7 +21,10 @@ $(document).ready(function () {
     var coconut = "";
     var peach = "";
 
-    //calling geo locator like gasStationList.js but using to populate select element class gas-station-input with gas station locations in option elements
+    //will hold gas station ids for each of the 5 locations- provided by google api
+    var gasStationIds = [];
+
+    //calling geo locator like gasStationList.js but using to populate <select> with class= "gas-station-input" with gas station locations in <option>
     let x
     let y
     function initMap(latX, lonY) {
@@ -33,20 +38,30 @@ $(document).ready(function () {
     }
 
     $(document).ready(function () {
+        //univeral start code for calling url information 
         let params = (new URL(document.location)).searchParams;
 
-        function getSyrupData(){
+        //grabbing data from firebase for objects that contain the key/value pair "location":id
+        function getSyrupData() {
+
+            //calling firebase to return a snapshot of all objects that have the key/value pair "location":id
             database.ref().orderByChild("location").equalTo(params.get('id')).once("value").then(function (snapshot) {
+
+                //creating an empty object
                 let fbObj = {}
-                if(snapshot.val()){
+
+                //if snapshot.val() has a value...
+                if (snapshot.val()) {
+
+                    //grabbing value of the keys at index 0 in snapshot(only one object in snapshot per id) and putting into fbObj
                     fbObj = snapshot.val()[Object.keys(snapshot.val())[0]]
                     console.log(fbObj)
                     document.getElementById("cherry-input").options[0].innerHTML = fbObj.cherry
-                    $("#vanilla-input").val(fbObj.vanilla);
+                    document.getElementById$("#vanilla-input").val(fbObj.vanilla);
                     $("#coconut-input").val(fbObj.coconut);
                     $("#peach-input").val(fbObj.peach);
                 }
-            })    
+            })
         }
         getSyrupData()
 
@@ -61,7 +76,7 @@ $(document).ready(function () {
         });
     });
 
-    //creating callback function  so my geolocation loads before any of my javascipt runs.
+    //creating callback function so my geolocation loads before any of my javascipt runs.
     function continueSomeProcess() {
         console.log(latX)
         var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latX + "," + lonY + "&radius=2000&types=convenience_store&limit=5&key=" + myKey;
@@ -75,6 +90,9 @@ $(document).ready(function () {
                 console.log(response);
                 for (var i = 0; i < 5; i++) {
                     var list = $("<li>");
+                    //console.log( response.results[i].id)
+                    gasStationIds.push(response.results[i].id);
+                    //console.log(gasStationIds);
                     list.addClass("list-group-item")
                     list.html(response.results[i].name + "<br>" + response.results[i].vicinity + ", Utah <br>" + "Cherry: " + cherry + "<br>" + "Vanilla: " + vanilla + "<br>" + "Coconut: " + coconut + " <br>" + "Peach: " + peach)
 
@@ -83,40 +101,21 @@ $(document).ready(function () {
                 initMap(latX, lonY)
             })
     }
-    var gasStationOption = $("<option>").addClass("gas-station-option").text("location");
-    $("#gas-station-input").append(gasStationOption);
+    // var gasStationOption = $("<option>").addClass("gas-station-option").text("location");
+    // $("#gas-station-input").append(gasStationOption);
 
+    console.log(window.location.search.split("?")[1].split("=")[1]);
 
-
+    //when submit button is clicked...
     $(".submit").on("click", function (event) {
+
         event.preventDefault();
         console.log("I'm working");
 
+        database.ref().orderByChild("location").equalTo("id").once("value").then(function (snapshot) {
 
-        //adding variables
-        //location = $(".gas-station-option").val();
-        cherry = $("#cherry-input").val();
-        vanilla = $("#vanilla-input").val();
-        coconut = $("#coconut-input").val();
-        peach = $("#peach-input").val();
+            console.log(snapshot);
 
-        // console.log(location);
-        console.log(cherry);
-        console.log(vanilla);
-        console.log(coconut);
-        console.log(peach);
-
-        database.ref().push({
-            location: location,
-            cherry: cherry,
-            vanilla: vanilla,
-            coconut: coconut,
-            peach: peach,
-            dateAdded: firebase.database.ServerValue.TIMESTAMP
         });
-
-    });
-
+    })
 })
-
-
