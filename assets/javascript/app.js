@@ -66,7 +66,11 @@ $(document).ready(function () {
 	function continueSomeProcess() {
 		console.log(x)
 
+<<<<<<< HEAD
+		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=" + myKey;
+=======
 		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY";
+>>>>>>> master
 
 		$.ajax({
 			url: gasStationURL,
