@@ -1,9 +1,12 @@
+//doesn't allow  nested logic run until document is ready
+$(document).ready(function () {
+
 //setting functionality to a specifc page
 // import config from './../..config.js'
 // console.log(config)
 var myKey = "AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY";
 
-//connecting to firebase to get data that was entered on syrup page
+// preparing config for connection to firebase
 var config = {
 	apiKey: "AIzaSyCFaXvnaHL3JsKa8rsUtkAxFiUJBsPm9bQ",
 	authDomain: "stfirebase-66923.firebaseapp.com",
@@ -12,15 +15,16 @@ var config = {
 	storageBucket: "stfirebase-66923.appspot.com",
 	messagingSenderId: "367723280740"
 };
+//connecting to firebase to get data that was entered on syrup page
 firebase.initializeApp(config);
 
-//naming firebase database
+//creating a reference to firebase database
 var database = firebase.database();
 
 //div to hold syrup list for each location
 var syrupDiv;
 
-//list of syrup flavors
+//variables for syrup flavors
 var cherry;
 var vanilla;
 var coconut;
@@ -30,8 +34,8 @@ var peach;
 var gasStationIds = [];
 
 //lattitude and longitude variables for google api
-let x
-let y
+let x;
+let y;
 
 //initializes google maps
 function initMap(x, y) {
@@ -47,8 +51,6 @@ function initMap(x, y) {
 }
 
 
-//doesn't allow javascript to run until document is ready
-$(document).ready(function () {
 
 
 	//lets google locate user to be used to grab gas stations within 5000 meters of user location
