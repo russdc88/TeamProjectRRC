@@ -1,5 +1,5 @@
 //API Key
-var myKey = password.GOOGLE_API_KEY
+var myKey = "AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY"
 
 //doesn't allow  nested logic run until document is ready
 $(document).ready(function () {

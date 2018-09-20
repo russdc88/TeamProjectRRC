@@ -4,7 +4,7 @@ $(".carousel").carousel({
 });
 
 //API key
-var myKey = password.GOOGLE_API_KEY
+var myKey = "AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY"
 
 let x
 let y
