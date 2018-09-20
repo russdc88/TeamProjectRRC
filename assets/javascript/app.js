@@ -1,54 +1,57 @@
+//API Key
+var myKey = password.GOOGLE_API_KEY
+
 //doesn't allow  nested logic run until document is ready
 $(document).ready(function () {
 
-//setting functionality to a specifc page
-// import config from './../..config.js'
-// console.log(config)
-var myKey = "AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY";
+	//setting functionality to a specifc page
+	// import config from './../..config.js'
+	// console.log(config)
 
-// preparing config for connection to firebase
-var config = {
-	apiKey: "AIzaSyCFaXvnaHL3JsKa8rsUtkAxFiUJBsPm9bQ",
-	authDomain: "stfirebase-66923.firebaseapp.com",
-	databaseURL: "https://stfirebase-66923.firebaseio.com",
-	projectId: "stfirebase-66923",
-	storageBucket: "stfirebase-66923.appspot.com",
-	messagingSenderId: "367723280740"
-};
-//connecting to firebase to get data that was entered on syrup page
-firebase.initializeApp(config);
 
-//creating a reference to firebase database
-var database = firebase.database();
+	// preparing config for connection to firebase
+	var config = {
+		apiKey: "AIzaSyCFaXvnaHL3JsKa8rsUtkAxFiUJBsPm9bQ",
+		authDomain: "stfirebase-66923.firebaseapp.com",
+		databaseURL: "https://stfirebase-66923.firebaseio.com",
+		projectId: "stfirebase-66923",
+		storageBucket: "stfirebase-66923.appspot.com",
+		messagingSenderId: "367723280740"
+	};
+	//connecting to firebase to get data that was entered on syrup page
+	firebase.initializeApp(config);
 
-//div to hold syrup list for each location
-var syrupDiv;
+	//creating a reference to firebase database
+	var database = firebase.database();
 
-//variables for syrup flavors
-var cherry;
-var vanilla;
-var coconut;
-var peach;
+	//div to hold syrup list for each location
+	var syrupDiv;
 
-//will hold gas station ids for each of the 5 locations- provided by google api
-var gasStationIds = [];
+	//variables for syrup flavors
+	var cherry;
+	var vanilla;
+	var coconut;
+	var peach;
 
-//lattitude and longitude variables for google api
-let x;
-let y;
+	//will hold gas station ids for each of the 5 locations- provided by google api
+	var gasStationIds = [];
 
-//initializes google maps
-function initMap(x, y) {
-	// The location of Uluru
-	var uluru = { lat: x, lng: y };
-	// The map, centered at Uluru
-	var map = new google.maps.Map(document.getElementById('map'), { 
-			zoom: 15, 
-			center: uluru 
+	//lattitude and longitude variables for google api
+	let x;
+	let y;
+
+	//initializes google maps
+	function initMap(x, y) {
+		// The location of my geolocation
+		var uluru = { lat: x, lng: y };
+		// The map, centered at my location
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 15,
+			center: uluru
 		});
-	// The marker, positioned at Uluru
-	var marker = new google.maps.Marker({ position: uluru, map: map });
-}
+		// The marker, positioned at my location
+		var marker = new google.maps.Marker({ position: uluru, map: map });
+	}
 
 
 
@@ -68,7 +71,9 @@ function initMap(x, y) {
 	function continueSomeProcess() {
 		console.log(x)
 
-		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&radius=2000&types=convenience_store&limit=5&key=AIzaSyD1OUTs9dglCHpQLJf6UOJWECwTMC4W-lY";
+		//creating api to pull gas stations locations near current locations
+
+		var gasStationURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + x + "," + y + "&rankby=distance&keyword=gas&types=convenience_store&limit=5&key=" + myKey;
 
 		$.ajax({
 			url: gasStationURL,
@@ -85,8 +90,8 @@ function initMap(x, y) {
 					list.addClass("list-group-item")
 
 					//grabs gas station name and address from google api and displays them in a list on gasStationList.html dom
-					list.html(response.results[i].name + "<br>" + response.results[i].vicinity)
-					
+					list.html(response.results[i].name + "<br>" + response.results[i].vicinity + " UT")
+
 					//place holder div for syrup data from firebase
 					let syrupDiv = $('<div>')
 
@@ -98,7 +103,7 @@ function initMap(x, y) {
 
 					//checks if url path exists- "file" is just a placeholder, then if it exits it assigns the location in C drive to pathname 
 					let pathname = ""
-					if(window.location.href.indexOf("file") > -1){
+					if (window.location.href.indexOf("file") > -1) {
 						pathname = window.location.href.split('file://')[1].split("gasStationList.html")[0] + "sodaForm.html"
 					} else {
 						pathname = "/sodaForm.html"
@@ -160,7 +165,7 @@ function initMap(x, y) {
 			})
 		}
 	}
-	
+
 	//calling firebase to get all items with an id to populate gas station syrup lists that just got "no data" pushed into values of flavor keys
 	function getStragglerSyrup(id) {
 
