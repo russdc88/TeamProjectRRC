@@ -93,7 +93,15 @@ $(document).ready(function () {
 					var editButton = $("<a>");
 
 					//checks if url path exists- "file" is just a placeholder, then if it exits it assigns the location in C drive to pathname 
-					let pathname = window.location.origin.indexOf('file') > -1 ? "/C:/Users/Owner/uubc/group%20projects/RRC/TeamProjectRRC/sodaForm.html" : "/sodaForm.html"
+					let pathname = ""
+					if(window.location.href.indexOf("file") > -1){
+						pathname = window.location.href.split('file://')[1].split("gasStationList.html")[0] + "sodaForm.html"
+					} else {
+						pathname = "/sodaForm.html"
+					}
+					console.log(pathname)
+
+					// let pathname = window.location.origin.indexOf('file') > -1 ? "/C:/Users/Owner/uubc/group%20projects/RRC/TeamProjectRRC/sodaForm.html" : "/sodaForm.html"
 
 					//setting the href with dynamic url path name variables + the unique id of each location which was provided by google api
 					editButton.attr("href", window.location.origin + pathname + "?id=" + response.results[i].id)
