@@ -113,7 +113,7 @@ $(document).ready(function () {
 					// let pathname = window.location.origin.indexOf('file') > -1 ? "/C:/Users/Owner/uubc/group%20projects/RRC/TeamProjectRRC/sodaForm.html" : "/sodaForm.html"
 
 					//setting the href with dynamic url path name variables + the unique id of each location which was provided by google api
-					editButton.attr("href", window.location.origin + pathname + "?id=" + response.results[i].id)
+					editButton.attr("href", window.location.origin + "/TeamProjectRRC" + pathname + "?id=" + response.results[i].id)
 					editButton.text("Update Syrups");
 					list.append(syrupDiv, editButton)
 					$(".gas-station-list").append(list);
